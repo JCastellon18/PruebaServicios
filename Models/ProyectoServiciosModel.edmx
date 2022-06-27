@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="ProyectoServiciosModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="ProyectoServiciosModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ProyectoServiciosModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ProyectoServiciosModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="ProyectoServiciosModel.Cliente" />
+          <EntitySet Name="Articulos" EntityType="ProyectoServiciosModel.Articulo" />
+          <EntitySet Name="Categorias" EntityType="ProyectoServiciosModel.Categoria" />
+          <EntitySet Name="Facturas" EntityType="ProyectoServiciosModel.Factura" />
+          <EntitySet Name="DetalleFacturas" EntityType="ProyectoServiciosModel.DetalleFactura" />
+          <AssociationSet Name="ClienteFactura" Association="ProyectoServiciosModel.ClienteFactura">
+            <End Role="Cliente" EntitySet="Clientes" />
+            <End Role="Factura" EntitySet="Facturas" />
+          </AssociationSet>
+          <AssociationSet Name="FacturaDetalleFactura" Association="ProyectoServiciosModel.FacturaDetalleFactura">
+            <End Role="Factura" EntitySet="Facturas" />
+            <End Role="DetalleFactura" EntitySet="DetalleFacturas" />
+          </AssociationSet>
+          <AssociationSet Name="ArticuloDetalleFactura" Association="ProyectoServiciosModel.ArticuloDetalleFactura">
+            <End Role="Articulo" EntitySet="Articulos" />
+            <End Role="DetalleFactura" EntitySet="DetalleFacturas" />
+          </AssociationSet>
+          <AssociationSet Name="CategoriaArticulo" Association="ProyectoServiciosModel.CategoriaArticulo">
+            <End Role="Categoria" EntitySet="Categorias" />
+            <End Role="Articulo" EntitySet="Articulos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" Nullable="false" />
+          <Property Name="Apellidos" Type="String" Nullable="false" />
+          <Property Name="Correo" Type="String" Nullable="false" />
+          <Property Name="NumTelf" Type="String" Nullable="false" />
+          <Property Name="Direccion" Type="String" Nullable="false" />
+          <NavigationProperty Name="Factura" Relationship="ProyectoServiciosModel.ClienteFactura" FromRole="Cliente" ToRole="Factura" />
+        </EntityType>
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PrecioUnitario" Type="Double" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DetalleFactura" Relationship="ProyectoServiciosModel.ArticuloDetalleFactura" FromRole="Articulo" ToRole="DetalleFactura" />
+          <Property Name="Img" Type="Binary" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="ProyectoServiciosModel.CategoriaArticulo" FromRole="Articulo" ToRole="Categoria" />
+          <Property Name="CategoriaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="NombreCategoria" Type="String" Nullable="false" />
+          <NavigationProperty Name="Articulo" Relationship="ProyectoServiciosModel.CategoriaArticulo" FromRole="Categoria" ToRole="Articulo" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroFactura" Type="Int32" Nullable="false" />
+          <Property Name="FechaFactura" Type="DateTime" Nullable="false" />
+          <Property Name="TotalNeto" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="ProyectoServiciosModel.ClienteFactura" FromRole="Factura" ToRole="Cliente" />
+          <Property Name="ClienteId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DetalleFactura" Relationship="ProyectoServiciosModel.FacturaDetalleFactura" FromRole="Factura" ToRole="DetalleFactura" />
+        </EntityType>
+        <EntityType Name="DetalleFactura">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Factura" Relationship="ProyectoServiciosModel.FacturaDetalleFactura" FromRole="DetalleFactura" ToRole="Factura" />
+          <Property Name="FacturaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Articulo" Relationship="ProyectoServiciosModel.ArticuloDetalleFactura" FromRole="DetalleFactura" ToRole="Articulo" />
+          <Property Name="ArticuloId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="ClienteFactura">
+          <End Type="ProyectoServiciosModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="ProyectoServiciosModel.Factura" Role="Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FacturaDetalleFactura">
+          <End Type="ProyectoServiciosModel.Factura" Role="Factura" Multiplicity="1" />
+          <End Type="ProyectoServiciosModel.DetalleFactura" Role="DetalleFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleFactura">
+              <PropertyRef Name="FacturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ArticuloDetalleFactura">
+          <End Type="ProyectoServiciosModel.Articulo" Role="Articulo" Multiplicity="1" />
+          <End Type="ProyectoServiciosModel.DetalleFactura" Role="DetalleFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleFactura">
+              <PropertyRef Name="ArticuloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CategoriaArticulo">
+          <End Type="ProyectoServiciosModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="ProyectoServiciosModel.Articulo" Role="Articulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Articulo">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="ProyectoServiciosModel" />
+        <Alias Key="Target" Value="ProyectoServiciosModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="ProyectoServiciosModelContainer" StorageEntityContainer="ProyectoServiciosModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
