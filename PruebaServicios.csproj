@@ -176,8 +176,33 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Articulo.cs">
+      <DependentUpon>ProyectoServiciosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Categoria.cs">
+      <DependentUpon>ProyectoServiciosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cliente.cs">
+      <DependentUpon>ProyectoServiciosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DetalleFactura.cs">
+      <DependentUpon>ProyectoServiciosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Factura.cs">
+      <DependentUpon>ProyectoServiciosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProyectoServiciosModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProyectoServiciosModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProyectoServiciosModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProyectoServiciosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProyectoServiciosModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -199,6 +224,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\ProyectoServiciosModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ProyectoServiciosModel.Context.cs</LastGenOutput>
+      <DependentUpon>ProyectoServiciosModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\ProyectoServiciosModel.edmx.sql" />
+    <Content Include="Models\ProyectoServiciosModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ProyectoServiciosModel.cs</LastGenOutput>
+      <DependentUpon>ProyectoServiciosModel.edmx</DependentUpon>
+    </Content>
     <Content Include="ProyectoAppWS.asmx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -270,6 +306,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
